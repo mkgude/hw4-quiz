@@ -118,12 +118,11 @@ function startGame() {
 }
 
 // This function checks the response to each answer
-function checkAnswer(answer) {
-  correct = myQuestions[currentQuestionIndex].correctAnswer;
-  // function for checking the correct answer
-    showScore();
-  }
-}
+// function checkAnswer(answer) {
+//   correct = myQuestions[currentQuestionIndex].correctAnswer;
+//   // function for checking the correct answer
+//   // showScore();
+// }
 
 // Display page to have user input initials
 
@@ -146,7 +145,7 @@ submitButton.addEventListener("click", function highscore() {
     return false;
     // save player information into localstorage
   } else {
-    var savedScores = JSON.parse(localStorage.getItem("savedScores"));
+    var savedScores = JSON.parse(localStorage.getItem("savedScores")) || [];
     var currentUser = initialsInput.value.trim();
     console.log(currentUser);
     var currentScore = {
@@ -166,7 +165,7 @@ submitButton.addEventListener("click", function highscore() {
 function generateScores() {
   scoreInitials.textContent = "";
   finalScore.textContent = "";
-  var highscores = JSON.parse(localstorage.getItem("highscores"));
+  var highscores = JSON.parse(localstorage.getItem("highscores")) || [];
   console.log(highscores);
   for (i = 0; i < highscores.length; i++) {
     var nameSpan = document.createElement("li");
