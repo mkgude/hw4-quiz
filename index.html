@@ -89,8 +89,8 @@
       </div>
 
       <!-- quiz page -->
-      <div class="container">
-        <div id="quizpage-container" class="hide">
+      <div class="container .container-background">
+        <div id="quizpage-container" class="hide quiz-results">
           <!-- add timer at the top of the page -->
           <div id="timer">
             <h4>Time Left: <span id="time"></span></h4>
@@ -98,20 +98,20 @@
           <!-- add questions to the page  -->
           <div id="questions"><p>QuestionPlaceholder</p></div>
           <div id="answers" class="optionButtons">
-            <button class="optionButton" id="a">
+            <button class="optionButton" id="a" onclick="">
               optionA
             </button>
-            <button class="optionButton" id="b">
+            <button class="optionButton" id="b" onclick="">
               optionB
             </button>
-            <button class="optionButton" id="c">
+            <button class="optionButton" id="c" onclick="">
               optionC
             </button>
           </div>
         </div>
 
         <!-- display the results  -->
-        <div id="resultPage" class="hide">
+        <div id="resultPage" class="hide quiz-results">
           <!-- User initials  -->
           <h1>Submit your score</h1>
           <h3 id="results"></h3>
@@ -119,7 +119,7 @@
           <button id="submitscore">Submit</button>
         </div>
         <!-- user score  -->
-        <div id="endGameButtons" class="hide">
+        <div id="endGameButtons" class="hide quiz-results">
           <h2>Name: <span id="name-place"></span></h2>
           <h2>Score: <span id="player-score"></span></h2>
           <!-- button - play again -->
@@ -128,6 +128,11 @@
           <button id="clear">Clear</button>
         </div>
       </div>
+      <img
+        class="image"
+        src="https://cdn.mos.cms.futurecdn.net/b4ERr2LQcbAMctgTpJVA2B.jpg"
+        alt="friends tvshow photo"
+      />
     </main>
   </body>
 </html>

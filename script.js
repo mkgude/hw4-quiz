@@ -14,7 +14,7 @@ var replayButton = document.getElementById("replay");
 var clearButton = document.getElementById("clear");
 var initialsInput = document.getElementById("name");
 var scoreInitials = document.getElementById("name-place");
-var finalScoreEl = document.getElementById("player-score");
+var finalScore = document.getElementById("player-score");
 var buttonA = document.getElementById("a");
 var buttonB = document.getElementById("b");
 var buttonC = document.getElementById("c");
@@ -24,45 +24,45 @@ var countDown = 5;
 var score = 0;
 var currentQuestionIndex = 0;
 var correct;
-var finalQuestionIndex = myQuestions;
+var finalQuestionIndex = 4;
 var timerInterval;
 
 // starting data
 var myQuestions = [
   {
-    question: "question1",
-    optionA: "asdf",
-    optionB: "asdf",
-    optionC: "asdf",
-    correctAnswer: "",
+    question: "Which soap opera did Joey have a role on?",
+    optionA: "General Hospital",
+    optionB: "Days of our lives",
+    optionC: "Greys Anatomy",
+    correctAnswer: "b",
   },
   {
-    question: "question1",
-    optionA: "",
-    optionB: "",
-    optionC: "",
-    correctAnswer: "",
+    question: "Who is Joey and Chandler's TV guide addressed to?",
+    optionA: "Miss Chandler Bong",
+    optionB: "Mr. Chandelier Bang",
+    optionC: "Sir Joey",
+    correctAnswer: "a",
   },
   {
-    question: "question1",
-    optionA: "",
-    optionB: "",
-    optionC: "",
-    correctAnswer: "",
+    question: "What is the name of Joey's agent?",
+    optionA: "Edith",
+    optionB: "Ethel",
+    optionC: "Estelle",
+    correctAnswer: "c",
   },
   {
-    question: "question1",
-    optionA: "",
-    optionB: "",
-    optionC: "",
-    correctAnswer: "",
+    question: "What was Monica's apartment number?",
+    optionA: "20",
+    optionB: "30",
+    optionC: "15",
+    correctAnswer: "a",
   },
   {
-    question: "question1",
-    optionA: "",
-    optionB: "",
-    optionC: "",
-    correctAnswer: "",
+    question: "What is the name of Joey's stuffed penguin?",
+    optionA: "Rachel",
+    optionB: "Penguinsy",
+    optionC: "Hugsy",
+    correctAnswer: "c",
   },
 ];
 
@@ -76,14 +76,22 @@ function displayQuestion() {
   if (currentQuestionIndex === finalQuestionIndex) {
     return scoreSubmit();
   }
-  // Display question first and then start to try 'for loop' and look into generator function (js)
-  // nextQuestion()
+
   var currentQuestion = myQuestions[currentQuestionIndex];
 
   questionEl.textContent = currentQuestion.question;
   buttonA.textContent = currentQuestion.optionA;
   buttonB.textContent = currentQuestion.optionB;
   buttonC.textContent = currentQuestion.optionC;
+
+  //Display question first and then start to try 'for loop' and look into generator function (js)
+  //nextQuestion()
+  // answerButtonEl.addEventListener("click", function nextQuestion() {
+  //   for (i = 0; i < currentQuestionIndex.length; i++) {
+  //     currentQuestionIndex[i];
+  //   }
+
+  // });
 }
 
 startButton.addEventListener("click", startGame);
@@ -109,6 +117,14 @@ function startGame() {
   }, 1000);
 }
 
+// This function checks the response to each answer
+function checkAnswer(answer) {
+  correct = myQuestions[currentQuestionIndex].correctAnswer;
+  // function for checking the correct answer
+    showScore();
+  }
+}
+
 // Display page to have user input initials
 
 function scoreSubmit() {
@@ -128,9 +144,9 @@ submitButton.addEventListener("click", function highscore() {
   if (initialsInput.value === "") {
     alert("Must add initials, try again");
     return false;
-    // Show player initials
+    // save player information into localstorage
   } else {
-    var savedScores = JSON.parse(localStorage.getItem("savedScores")) || [];
+    var savedScores = JSON.parse(localStorage.getItem("savedScores"));
     var currentUser = initialsInput.value.trim();
     console.log(currentUser);
     var currentScore = {
@@ -145,32 +161,38 @@ submitButton.addEventListener("click", function highscore() {
   }
 });
 
-// Store question answers and compare results
+//Store question answers and compare results
+// display the scores in the appropriate spots
 function generateScores() {
   scoreInitials.textContent = "";
-  finalScoreEl.textContent = "";
-  var highscores = JSON.parse(localstorage.getItem("savedScores")) || [];
-  for (i = 0; i, highscores.length; i++) {
+  finalScore.textContent = "";
+  var highscores = JSON.parse(localstorage.getItem("highscores"));
+  console.log(highscores);
+  for (i = 0; i < highscores.length; i++) {
     var nameSpan = document.createElement("li");
     var scoreSpan = document.createElement("li");
     nameSpan.textContent = highscores[i].name;
     scoreSpan.textContent = highscores[i].score;
     scoreInitials.appendChild(nameSpan);
-    finalScoreEl.appendChild(scoreSpan.value);
+    console.log(nameSpan);
+    finalScore.appendChild(scoreSpan.value);
   }
+  localStorage.setItem("highscores", JSON.stringify(highscores));
 }
 
-// evaluate scores
-
-// function calculateScores (){
-
-// }
-
 // add buttons to play again or remove score
-
+//replay button
 replayButton.addEventListener("click", returnHomePage);
 function returnHomePage() {
   console.log("return to home page");
   startPage.classList.remove("hide");
   displayScoreEl.classList.add("hide");
+}
+//clear button
+clearButton.addEventListener("click", clearScore);
+function clearScore() {
+  window.localStorage.clear();
+  console.log("cleared");
+  scoreInitials.textContent = "";
+  finalScore.textContent = "";
 }
